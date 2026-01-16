@@ -1,3 +1,3 @@
 - Nom: Laurent 
 - Prénom: Leslie
-- URL Netify: coruscating-conkies-9fd8e1.netlify.app
+- URL Netlify: coruscating-conkies-9fd8e1.netlify.app
