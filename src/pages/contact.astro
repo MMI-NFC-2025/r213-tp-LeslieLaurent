@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout titre="Contact">
+  <section class="max-w-xl mx-auto bg-slate-100 rounded-lg shadow-lg p-8 mt-8">
+    <h1 class="text-3xl font-bold text-purple-950 mb-4 text-center">Contactez-nous</h1>
+    <p class="text-black text-sm mb-6 text-center">Une question, un projet immobilier ? Remplissez le formulaire ci-dessous, nous vous répondrons rapidement.</p>
+    <form class="flex flex-col gap-4">
+      <input type="text" name="nom" placeholder="Votre nom" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]" />
+      <input type="email" name="email" placeholder="Votre email" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]" />
+      <textarea name="message" placeholder="Votre message" rows="5" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]"></textarea>
+      <button type="submit" class="bg-purple-950 text-white font-semibold py-2 rounded hover:bg-purple-400 transition">Envoyer</button>
+    </form>
+  </section>
+</Layout>
