@@ -31,6 +31,11 @@ const { offre } = Astro.props;
       card.classList.toggle('bg-violet-100');
       card.classList.toggle('bg-white');
       btn.textContent = isFavori ? 'Mettre en favori' : 'Favori';
+          // Met à jour l'attribut data-favori du conteneur .offre
+          const offreContainer = card.closest('.offre');
+          if (offreContainer) {
+            offreContainer.dataset.favori = isFavori ? 'false' : 'true';
+          }
     });
   });
 </script>
