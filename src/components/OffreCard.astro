@@ -1,10 +1,40 @@
 ---
 const { offre } = Astro.props;
 ---
-<div class="rounded-lg shadow-lg w-72 bg-white p-6 flex flex-col items-start border-l-8 border-[#7c3aed]">
+<div
+  class={"offre-card rounded-lg shadow-lg w-72 p-6 flex flex-col items-start border-l-8 border-[#7c3aed] transition-colors duration-300 " + (offre.favori ? 'bg-violet-100' : 'bg-white')}
+  data-favori={offre.favori}
+>
   <div class="font-semibold text-lg mb-1 text-black">{offre.nomMaison}</div>
   <div class="text-black text-sm mb-2">{offre.surface} m² · {offre.nbChambres} chambres · {offre.nbSdb} sdb</div>
   <div class="text-black text-sm mb-2">{offre.adresse}</div>
   <div class="text-black font-bold text-lg mb-2">{offre.prix} €</div>
-  <button class="mt-auto bg-purple-800 text-white px-4 py-2 rounded hover:bg-[#a78bfa] transition">Voir l'annonce</button>
+  <div class="flex w-full items-center justify-between gap-2 mt-2">
+    <button class="bg-purple-800 text-white px-4 py-2 rounded hover:bg-[#a78bfa] transition font-semibold shadow">Voir l'annonce</button>
+    <button
+      class="bg-purple-800 hover:bg-[#a78bfa] transition rounded-lg text-white px-4 py-2 font-semibold shadow"
+      type="button"
+      data-favori-btn
+    >
+      {offre.favori ? 'Favori' : 'Mettre en favori'}
+    </button>
+  </div>
+
+<script>
+  const cards = document.querySelectorAll('.offre-card');
+  cards.forEach((card) => {
+    const btn = card.querySelector('[data-favori-btn]');
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isFavori = card.dataset.favori === 'true';
+      card.dataset.favori = isFavori ? 'false' : 'true';
+      card.classList.toggle('bg-violet-100');
+      card.classList.toggle('bg-white');
+      btn.textContent = isFavori ? 'Mettre en favori' : 'Favori';
+    });
+  });
+</script>
+
+</div>
+
 </div>
