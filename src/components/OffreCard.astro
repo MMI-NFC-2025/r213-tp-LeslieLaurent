@@ -1,45 +1,14 @@
 ---
+import PbImage from "./PbImage.astro";
 const { offre } = Astro.props;
 ---
+
 <div
-  class={"offre-card rounded-lg shadow-lg w-72 p-6 flex flex-col items-start border-l-8 border-[#7c3aed] transition-colors duration-300 " + (offre.favori ? 'bg-violet-100' : 'bg-white')}
-  data-favori={offre.favori}
+  class={"offre-card rounded-lg shadow-lg w-72 p-6 flex flex-col items-center border-l-8 border-[#7c3aed] transition-colors duration-300 " + (offre.Favori ? 'bg-violet-100' : 'bg-white')}
+  data-favori={offre.Favori}
 >
-  <div class="font-semibold text-lg mb-1 text-black">{offre.nomMaison}</div>
-  <div class="text-black text-sm mb-2">{offre.surface} m² · {offre.nbChambres} chambres · {offre.nbSdb} sdb</div>
-  <div class="text-black text-sm mb-2">{offre.adresse}</div>
-  <div class="text-black font-bold text-lg mb-2">{offre.prix} €</div>
-  <div class="flex w-full items-center justify-between gap-2 mt-2">
-    <button class="bg-purple-800 text-white px-4 py-2 rounded hover:bg-[#a78bfa] transition font-semibold shadow">Voir l'annonce</button>
-    <button
-      class="bg-purple-800 hover:bg-[#a78bfa] transition rounded-lg text-white px-4 py-2 font-semibold shadow"
-      type="button"
-      data-favori-btn
-    >
-      {offre.favori ? 'Favori' : 'Mettre en favori'}
-    </button>
-  </div>
-
-<script>
-  const cards = document.querySelectorAll('.offre-card');
-  cards.forEach((card) => {
-    const btn = card.querySelector('[data-favori-btn]');
-    btn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isFavori = card.dataset.favori === 'true';
-      card.dataset.favori = isFavori ? 'false' : 'true';
-      card.classList.toggle('bg-violet-100');
-      card.classList.toggle('bg-white');
-      btn.textContent = isFavori ? 'Mettre en favori' : 'Favori';
-          // Met à jour l'attribut data-favori du conteneur .offre
-          const offreContainer = card.closest('.offre');
-          if (offreContainer) {
-            offreContainer.dataset.favori = isFavori ? 'false' : 'true';
-          }
-    });
-  });
-</script>
-
-</div>
-
+  <div class="font-semibold text-lg mb-4 text-black">{offre.Nom_maison}</div>
+  {offre.image && (
+    <PbImage record={offre} recordImage={Array.isArray(offre.image) ? offre.image[0] : offre.image} width={400} height={300} />
+  )}
 </div>
