@@ -11,4 +11,5 @@ const { offre } = Astro.props;
   {offre.image && (
     <PbImage record={offre} recordImage={Array.isArray(offre.image) ? offre.image[0] : offre.image} width={400} height={300} />
   )}
+  <a href={`/offres/${offre.id}`}>Voir plus</a>
 </div>
