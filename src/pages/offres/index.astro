@@ -13,6 +13,9 @@ const offres = await getOffres();
                 <div class="flex justify-center mb-6">
                     <button id="favori-button" class="bg-purple-800 hover:bg-[#a78bfa] transition rounded-lg text-white p-2 font-semibold shadow">Afficher les favoris</button>
                 </div>
+                <div class="flex justify-center mb-6">
+                    <a href="../offres/surface/[surface].astro"  class="bg-pink-200 hover:bg-pink-400 transition rounded-lg text-white p-2 font-semibold shadow">Maisons avec surface &gt; 80 m²</a>
+                </div>
         <div id="offres-container" class="thumbnails grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {offres.length === 0 && (
                 <div class="text-white text-xl col-span-full">Aucune offre trouvée.</div>

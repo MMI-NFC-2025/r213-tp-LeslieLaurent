@@ -1,0 +1,36 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import OffreCard from '../../../components/OffreCard.astro';
+import { getOffres } from '../../../backend.mjs';
+
+
+const surface = 80;
+const offres = await getOffres();
+const filteredOffres = offres.filter(offre => Number(offre.Surface) > surface);
+
+---
+
+<Layout titre={`Maisons avec surface > ${surface} m²`}>
+   <section class="text-center mb-10">
+       <h1 class="text-3xl md:text-4xl font-bold mb-4 text-purple-100 drop-shadow">Maisons avec grande surface</h1>
+       <p class="text-lg text-slate-100 mb-8 drop-shadow">Liste des maisons dont la surface est supérieure à {surface} m².</p>
+   </section>
+	<div class="thumbnails grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+		
+	<a
+        href="/offres"
+        class="bg-gray-500 hover:bg-gray-600 text-white p-2 rounded-lg mb-6 inline-block"
+    >
+        ← Retour aux offres
+    </a>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+            filteredOffres.map((offre) => (
+                <div class="offre bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <OffreCard offre={offre} />
+                </div>
+            ))
+        }
+    </div>
+</Layout>

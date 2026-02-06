@@ -26,3 +26,10 @@ export async function getOffre(id) {
         return null;
     }
 }
+
+try {
+    const grandesMaisons = await pb.collection("Maison").getFullList({ filter: 'surface > 80' });
+    console.log(JSON.stringify(grandesMaisons, null, 2));
+} catch (e) {
+    console.error(e);
+}
