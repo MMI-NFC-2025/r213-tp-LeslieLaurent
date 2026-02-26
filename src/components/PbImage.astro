@@ -1,5 +1,5 @@
 ---
-import { getImageUrl } from '../backend.mjs';
+import { getImageUrl } from '../js/backend.mjs';
 import { Image } from 'astro:assets';
 
 const {
@@ -15,7 +15,7 @@ const imageURL = await getImageUrl(record, recordImage);
 {imageURL && (
   <Image
     src={imageURL}
-    alt={record.nomMaison || 'Image'}
+    alt={record.Nom_maison || 'Image'}
     width={width}
     height={height}
     inferSize={true}

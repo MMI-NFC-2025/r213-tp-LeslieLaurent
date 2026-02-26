@@ -2,14 +2,299 @@
 import Layout from "../layouts/Layout.astro";
 ---
 <Layout titre="Contact">
-  <section class="max-w-xl mx-auto bg-slate-100 rounded-lg shadow-lg p-8 mt-8">
-    <h1 class="text-3xl font-bold text-purple-950 mb-4 text-center">Contactez-nous</h1>
-    <p class="text-black text-sm mb-6 text-center">Une question, un projet immobilier ? Remplissez le formulaire ci-dessous, nous vous répondrons rapidement.</p>
-    <form class="flex flex-col gap-4">
-      <input type="text" name="nom" placeholder="Votre nom" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]" />
-      <input type="email" name="email" placeholder="Votre email" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]" />
-      <textarea name="message" placeholder="Votre message" rows="5" required class="border border-purple-400 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#e879f9]"></textarea>
-      <button type="submit" class="bg-purple-950 text-white font-semibold py-2 rounded hover:bg-purple-400 transition">Envoyer</button>
+  <section class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-12 mt-12 mb-16">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#3E2723] mb-4">Contactez-nous</h1>
+      <p class="text-[#3E2723] text-lg opacity-80 max-w-xl mx-auto">
+        Une question sur nos biens immobiliers ? Notre équipe vous répond sous 24h.
+      </p>
+    </div>
+
+    <!-- Message de succès (caché par défaut) -->
+    <div id="success-message" class="hidden bg-[#F5F1E8] border-l-4 border-[#3E2723] p-5 rounded-md mb-8">
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 text-[#3E2723] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div>
+          <h3 class="font-semibold text-[#3E2723] mb-1">Message envoyé avec succès !</h3>
+          <p class="text-sm text-[#3E2723] opacity-80">Nous vous répondrons dans les plus brefs délais.</p>
+        </div>
+      </div>
+    </div>
+
+    <form id="contact-form" class="space-y-6" novalidate>
+      <!-- Nom et Prénom -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="form-group">
+          <label for="nom" class="block text-sm font-semibold text-[#3E2723] mb-2">
+            Nom <span class="text-red-600">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="nom" 
+            name="nom" 
+            required 
+            minlength="2"
+            class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition"
+            aria-describedby="nom-error"
+          />
+          <span id="nom-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="prenom" class="block text-sm font-semibold text-[#3E2723] mb-2">
+            Prénom <span class="text-red-600">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="prenom" 
+            name="prenom" 
+            required 
+            minlength="2"
+            class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition"
+            aria-describedby="prenom-error"
+          />
+          <span id="prenom-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+        </div>
+      </div>
+
+      <!-- Email et Téléphone -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="form-group">
+          <label for="email" class="block text-sm font-semibold text-[#3E2723] mb-2">
+            Email <span class="text-red-600">*</span>
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition"
+            aria-describedby="email-error"
+          />
+          <span id="email-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="telephone" class="block text-sm font-semibold text-[#3E2723] mb-2">
+            Téléphone <span class="text-red-600">*</span>
+          </label>
+          <input 
+            type="tel" 
+            id="telephone" 
+            name="telephone" 
+            required 
+            pattern="[0-9]{10}"
+            placeholder="0612345678"
+            class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition"
+            aria-describedby="telephone-error"
+          />
+          <span id="telephone-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+        </div>
+      </div>
+
+      <!-- Sujet -->
+      <div class="form-group">
+        <label for="sujet" class="block text-sm font-semibold text-[#3E2723] mb-2">
+          Sujet de votre demande <span class="text-red-600">*</span>
+        </label>
+        <select 
+          id="sujet" 
+          name="sujet" 
+          required
+          class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition bg-white"
+          aria-describedby="sujet-error"
+        >
+          <option value="">Sélectionnez un sujet</option>
+          <option value="achat">Achat d'un bien</option>
+          <option value="vente">Vente d'un bien</option>
+          <option value="location">Location</option>
+          <option value="estimation">Estimation de bien</option>
+          <option value="information">Demande d'information</option>
+          <option value="autre">Autre</option>
+        </select>
+        <span id="sujet-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label for="message" class="block text-sm font-semibold text-[#3E2723] mb-2">
+          Message <span class="text-red-600">*</span>
+        </label>
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="6" 
+          required 
+          minlength="10"
+          class="w-full border border-[#D4C5B0] rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition resize-vertical"
+          aria-describedby="message-error"
+        ></textarea>
+        <span id="message-error" class="error-message hidden text-red-600 text-sm mt-1"></span>
+      </div>
+
+      <!-- RGPD -->
+      <div class="form-group">
+        <label class="flex items-start gap-3 cursor-pointer">
+          <input 
+            type="checkbox" 
+            id="rgpd" 
+            name="rgpd" 
+            required
+            class="mt-1 w-5 h-5 border-2 border-[#D4C5B0] rounded focus:ring-2 focus:ring-[#3E2723] text-[#3E2723]"
+            aria-describedby="rgpd-error"
+          />
+          <span class="text-sm text-[#3E2723] leading-relaxed">
+            J'accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande. <span class="text-red-600">*</span>
+            <span class="block text-xs opacity-70 mt-1">
+              Conformément au RGPD, vos données sont traitées de manière confidentielle.
+            </span>
+          </span>
+        </label>
+        <span id="rgpd-error" class="error-message hidden text-red-600 text-sm mt-1 ml-8"></span>
+      </div>
+
+      <!-- Bouton -->
+      <div class="pt-4">
+        <button 
+          type="submit" 
+          class="w-full bg-[#3E2723] text-[#FAF8F3] font-semibold py-4 rounded-md hover:bg-[#5D4037] transition shadow-sm flex items-center justify-center gap-2"
+        >
+          <span>Envoyer le message</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+        <p class="text-xs text-[#3E2723] opacity-60 text-center mt-3">
+          Les champs marqués d'un <span class="text-red-600">*</span> sont obligatoires
+        </p>
+      </div>
     </form>
   </section>
 </Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMessage = document.getElementById('success-message');
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Reset des erreurs
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.classList.add('hidden');
+        el.textContent = '';
+      });
+      document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(el => {
+        el.classList.remove('border-red-500');
+      });
+
+      let isValid = true;
+
+      // Validation Nom
+      const nom = document.getElementById('nom') as HTMLInputElement;
+      if (!nom.value.trim() || nom.value.length < 2) {
+        showError('nom', 'Le nom doit contenir au moins 2 caractères');
+        isValid = false;
+      }
+
+      // Validation Prénom
+      const prenom = document.getElementById('prenom') as HTMLInputElement;
+      if (!prenom.value.trim() || prenom.value.length < 2) {
+        showError('prenom', 'Le prénom doit contenir au moins 2 caractères');
+        isValid = false;
+      }
+
+      // Validation Email
+      const email = document.getElementById('email') as HTMLInputElement;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim() || !emailRegex.test(email.value)) {
+        showError('email', 'Veuillez entrer une adresse email valide');
+        isValid = false;
+      }
+
+      // Validation Téléphone
+      const telephone = document.getElementById('telephone') as HTMLInputElement;
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!telephone.value.trim() || !phoneRegex.test(telephone.value.replace(/\s/g, ''))) {
+        showError('telephone', 'Le téléphone doit contenir 10 chiffres');
+        isValid = false;
+      }
+
+      // Validation Sujet
+      const sujet = document.getElementById('sujet') as HTMLSelectElement;
+      if (!sujet.value) {
+        showError('sujet', 'Veuillez sélectionner un sujet');
+        isValid = false;
+      }
+
+      // Validation Message
+      const message = document.getElementById('message') as HTMLTextAreaElement;
+      if (!message.value.trim() || message.value.length < 10) {
+        showError('message', 'Le message doit contenir au moins 10 caractères');
+        isValid = false;
+      }
+
+      // Validation RGPD
+      const rgpd = document.getElementById('rgpd') as HTMLInputElement;
+      if (!rgpd.checked) {
+        showError('rgpd', 'Vous devez accepter le traitement de vos données');
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Afficher le message de succès
+        if (successMessage) {
+          successMessage.classList.remove('hidden');
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Réinitialiser le formulaire
+        form.reset();
+        
+        // Masquer le message après 5 secondes
+        setTimeout(() => {
+          if (successMessage) {
+            successMessage.classList.add('hidden');
+          }
+        }, 5000);
+      } else {
+        // Scroll vers la première erreur
+        const firstError = document.querySelector('.border-red-500');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+  }
+
+  function showError(fieldId: string, message: string) {
+    const field = document.getElementById(fieldId);
+    const errorSpan = document.getElementById(`${fieldId}-error`);
+    
+    if (field) {
+      field.classList.add('border-red-500');
+    }
+    
+    if (errorSpan) {
+      errorSpan.textContent = message;
+      errorSpan.classList.remove('hidden');
+    }
+  }
+</script>
+
+<style>
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: #3E2723;
+  }
+
+  .form-group input.border-red-500,
+  .form-group textarea.border-red-500,
+  .form-group select.border-red-500 {
+    border-color: #dc2626;
+  }
+</style>

@@ -1,24 +1,22 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import OffreCard from "../../components/OffreCard.astro";
-import { getOffres } from "../../backend.mjs";
+import { getOffres } from "../../js/backend.mjs";
 
 const offres = await getOffres();
 ---
 <Layout titre="Offres immobilières">
-	 <section class="text-center mb-10">
-			 <h1 class="text-3xl md:text-4xl font-bold mb-4 text-purple-100 drop-shadow">Nos offres immobilières</h1>
-			 <p class="text-lg text-slate-100 mb-8 drop-shadow">Appartements, maisons et locaux à vendre ou à louer.</p>
+	 <section class="text-center mb-12 mt-4">
+			 <h1 class="text-4xl md:text-5xl font-bold mb-5 text-[#3E2723]">Nos offres immobilières</h1>
+			 <p class="text-lg md:text-xl text-[#3E2723] mb-10 opacity-90">Appartements, maisons et locaux à vendre ou à louer.</p>
 	 </section>
-                <div class="flex justify-center mb-6">
-                    <button id="favori-button" class="bg-purple-800 hover:bg-[#a78bfa] transition rounded-lg text-white p-2 font-semibold shadow">Afficher les favoris</button>
+                <div class="flex justify-center gap-4 mb-10">
+                    <button id="favori-button" class="bg-[#3E2723] hover:bg-[#5D4037] transition rounded-md text-[#FAF8F3] px-5 py-3 font-semibold shadow-sm">Afficher les favoris</button>
+                    <a href="/offres/surface/80" class="bg-[#D4C5B0] hover:bg-[#C4B5A0] transition rounded-md text-[#3E2723] px-5 py-3 font-semibold shadow-sm">Maisons avec surface &gt; 80 m²</a>
                 </div>
-                <div class="flex justify-center mb-6">
-                    <a href="../offres/surface/[surface].astro"  class="bg-pink-200 hover:bg-pink-400 transition rounded-lg text-white p-2 font-semibold shadow">Maisons avec surface &gt; 80 m²</a>
-                </div>
-        <div id="offres-container" class="thumbnails grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+        <div id="offres-container" class="max-w-5xl mx-auto space-y-6">
             {offres.length === 0 && (
-                <div class="text-white text-xl col-span-full">Aucune offre trouvée.</div>
+                <div class="text-[#3E2723] text-xl col-span-full">Aucune offre trouvée.</div>
             )}
             {offres.map((offre) => (
                 <div class="offre" data-favori={offre.Favori ? 'true' : 'false'}>
@@ -34,11 +32,11 @@ const offres = await getOffres();
 </Layout>
 
 <script>
-    const button = document.getElementById('Favori');
+    const button = document.getElementById('favori-button');
     let showOnlyFavorites = false;
     button?.addEventListener('click', () => {
         showOnlyFavorites = !showOnlyFavorites;
-        const offres = document.querySelectorAll('Nom_maison');
+        const offres = document.querySelectorAll('.offre');
         offres.forEach(offre => {
             const isFavori = offre.dataset.favori === 'true';
             if (showOnlyFavorites) {
