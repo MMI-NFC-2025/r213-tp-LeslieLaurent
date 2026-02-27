@@ -29,11 +29,15 @@ if (Astro.request.method === "POST") {
 	 <section class="text-center mb-12 mt-4">
 			 <h1 class="text-4xl md:text-5xl font-bold mb-5 text-[#3E2723]">Nos offres immobilières</h1>
 			 <p class="text-lg md:text-xl text-[#3E2723] mb-10 opacity-90">Appartements, maisons et locaux à vendre ou à louer.</p>
-            <form action="/offres" method="POST">
-             <input type="number" name="minPrix" placeholder="Prix minimum" />
-             <input type="number" name="maxPrix" placeholder="Prix maximum" />
-             <input type="submit" value="Filtrer par prix" />
-            </form>
+              <form action="/offres" method="POST" class="flex flex-col md:flex-row items-center justify-center gap-4 bg-[#F5F3EF] p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-6">
+                 <input type="number" name="minPrix" placeholder="Prix minimum" min="0" step="1000"
+                     class="w-full md:w-40 px-4 py-2 border border-[#D4C5B0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition" />
+                 <span class="text-[#3E2723] font-semibold">à</span>
+                 <input type="number" name="maxPrix" placeholder="Prix maximum" min="0" step="1000"
+                     class="w-full md:w-40 px-4 py-2 border border-[#D4C5B0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3E2723] transition" />
+                 <input type="submit" value="Filtrer par prix"
+                     class="bg-[#3E2723] text-[#FAF8F3] px-6 py-2 rounded-md font-semibold shadow hover:bg-[#5D4037] transition cursor-pointer" />
+              </form>
             </section>
                 <div class="flex justify-center gap-4 mb-10">
                     <button id="favori-button" class="bg-[#3E2723] hover:bg-[#5D4037] transition rounded-md text-[#FAF8F3] px-5 py-3 font-semibold shadow-sm">Afficher les favoris</button>
