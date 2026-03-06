@@ -72,6 +72,16 @@ export async function getAgents() {
     }
 }
 
+export async function getAgent(id) {
+    try {
+        const data = await pb.collection('Agent').getOne(id, { expand: 'maisons' });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant l\'agent', error);
+        return null;
+    }
+}
+
 export async function getOffresByAgent(agentId) {
     try {
         return await pb.collection('Maison').getFullList({
