@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getAgents } from '../../js/backend.mjs';
+
+const agents = await getAgents();
+---
+
+<Layout titre="Liste des Agents">
+  <section class="text-center mb-16 mt-8">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6 text-[#3E2723]">Liste des Agents</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 px-8">
+      {agents.map(agent => (
+        
+          <a href={"/agents/" + agent.id}
+          class="block bg-white border border-[#D4C5B0] rounded-lg p-6 shadow-sm hover:shadow-md hover:border-[#3E2723] transition-all duration-300"
+        >
+          <h2 class="text-xl font-bold text-[#3E2723]">{agent.prenom} {agent.nom}</h2>
+          <p class="text-sm text-[#3E2723] opacity-60 mt-1">{agent.email}</p>
+          <span class="mt-4 inline-block text-sm font-semibold text-[#3E2723] underline">
+            Voir les offres →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

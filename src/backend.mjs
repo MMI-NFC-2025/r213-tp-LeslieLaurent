@@ -1,5 +1,8 @@
+export async function setFavori(house) {
+    await pb.collection('Maison').update(house.id, { Favori: house.favori });
+}
 import PocketBase from "pocketbase";
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase("https://agence.leslie-laurent.fr/_/");
 
 export async function getOffres() {
     try {
@@ -60,4 +63,29 @@ export async function filterByPrix(minPrix, maxPrix) {
         console.log('Erreur lors du filtrage par prix', error);
         return [];
     }
+}
+
+export async function getAgents() {
+    try {
+        return await pb.collection('Agent').getFullList({ sort: 'nom' });
+    } catch (error) {
+        console.log('Erreur agents', error);
+        return [];
+    }
+}
+
+export async function getOffresByAgent(agentId) {
+    try {
+        return await pb.collection('Maison').getFullList({
+            filter: `agent = "${agentId}"`,
+            sort: '-created'
+        });
+    } catch (error) {
+        console.log('Erreur offres par agent', error);
+        return [];
+    }
+}
+
+export async function setFavori(house) {
+    await db.collection('maison').update(house.id, {favori: !house.favori});
 }

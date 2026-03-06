@@ -8,13 +8,17 @@ const { offre } = Astro.props;
   data-favori={offre.Favori}
 >
   <div class="flex flex-row h-[280px]">
-    <!-- Image à gauche - 30% -->
     <div class="w-[30%] relative overflow-hidden flex-shrink-0">
-      {offre.Favori && (
-        <div class="absolute top-3 left-3 bg-[#3E2723] text-[#FAF8F3] text-xs font-semibold px-3 py-1 rounded-full z-10">
-          ⭐ Favori
-        </div>
-      )}
+     <button class="favoriteButton absolute bottom-0 left-0 p-2 text-white rounded-br-lg" data-offre={JSON.stringify(offre)}>
+    <img id="favorite-icon" src={offre.Favori ? "favorite_filled.png" : "favorite.png"} alt="Favorite Icon" class="w-6 h-6" />
+</button>
+        <img
+          src="/src/assets/favorite.png"
+          alt="Favori"
+          class={offre.Favori ? 'w-10 h-10 opacity-100' : 'w-10 h-10 opacity-40'}
+          style="object-fit: cover; object-position: center; display: block; margin: auto; padding: 2px;"
+        />
+      </button>
       <div class="w-full h-full transform transition-transform duration-500 group-hover:scale-110">
         {offre.image && (
           <PbImage record={offre} recordImage={Array.isArray(offre.image) ? offre.image[0] : offre.image} width={400} height={400} />
@@ -22,16 +26,12 @@ const { offre } = Astro.props;
       </div>
     </div>
     
-    <!-- Infos à droite - 70% -->
     <div class="w-[70%] p-6 flex flex-col justify-between">
       <div>
-        <!-- Nom du logement -->
         <h3 class="font-bold text-2xl text-[#3E2723] mb-2">{offre.Nom_maison}</h3>
         
-        <!-- Adresse -->
         <p class="text-sm text-[#3E2723] opacity-70 mb-4">📍 {offre.Adresse}</p>
         
-        <!-- Détails avec icônes -->
         <div class="flex gap-4 mb-4 text-sm text-[#3E2723]">
           <div class="flex items-center gap-1.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,7 +42,6 @@ const { offre } = Astro.props;
         </div>
       </div>
       
-      <!-- Prix et action -->
       <div class="flex items-end justify-between">
         <div class="text-3xl font-bold text-[#3E2723]">{offre.Prix?.toLocaleString('fr-FR')} €</div>
         <a 
@@ -55,3 +54,25 @@ const { offre } = Astro.props;
     </div>
   </div>
 </div>
+
+<script>
+  //@ts-nocheck
+  document.addEventListener("DOMContentLoaded", () => {
+    const favoriteButtons = document.querySelectorAll(".favoriteButton");
+    favoriteButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const offreData = JSON.parse(button.dataset.offre || '{}');
+        const newFavori = !offreData.Favori;
+
+        await fetch(`/api/favori?id=${offreData.id}&favori=${newFavori}`, { method: 'POST' });
+
+        const favIcon = button.querySelector('#favorite-icon');
+        if (favIcon) {
+          favIcon.style.opacity = newFavori ? "1" : "0.4";
+        }
+        offreData.Favori = newFavori;
+        button.dataset.offre = JSON.stringify(offreData);
+      });
+    });
+  });
+</script>
