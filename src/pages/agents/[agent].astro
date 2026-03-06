@@ -3,9 +3,13 @@ import Layout from "../../layouts/Layout.astro";
 import OffreCard from "../../components/OffreCard.astro";
 import { getAgents, getOffresByAgent } from '../../js/backend.mjs';
 
-const { agent } = Astro.params
-const offres = await getOffresByAgent(agent);
-console.log(offres);
+const { agent: agentId } = Astro.params;
+const agents = await getAgents();
+const agent = agents.find(a => a.id === agentId);
+if (!agent) {
+  return Astro.redirect("/agents");
+}
+const offres = await getOffresByAgent(agentId);
 
 ---
 

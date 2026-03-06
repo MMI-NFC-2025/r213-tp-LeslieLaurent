@@ -1,6 +1,6 @@
 import { c as createComponent, a as createAstro, r as renderComponent, b as renderTemplate, m as maybeRenderHead, d as addAttribute, e as renderScript } from './astro/server_DSHN2woJ.mjs';
 import 'piccolore';
-import { e as getImageUrl } from './backend_3lfTKTj8.mjs';
+import { e as getImageUrl } from './backend_CPnBvLOi.mjs';
 import { $ as $$Image } from './_astro_assets_DCTIxM9h.mjs';
 
 const $$Astro$1 = createAstro();

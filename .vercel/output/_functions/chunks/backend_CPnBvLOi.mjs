@@ -84,4 +84,4 @@ async function getOffresByAgent(agentId) {
     }
 }
 
-export { getAgents as a, addOffre as b, getOffres as c, getOffre as d, getImageUrl as e, filterByPrix as f, getOffresByAgent as g };
+export { getOffresByAgent as a, addOffre as b, getOffres as c, getOffre as d, getImageUrl as e, filterByPrix as f, getAgents as g };

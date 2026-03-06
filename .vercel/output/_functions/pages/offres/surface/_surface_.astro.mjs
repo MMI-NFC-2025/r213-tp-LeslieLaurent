@@ -1,8 +1,8 @@
 import { c as createComponent, a as createAstro, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_DSHN2woJ.mjs';
 import 'piccolore';
 import { $ as $$Layout } from '../../../chunks/Layout_BO8RUMqX.mjs';
-import { $ as $$OffreCard } from '../../../chunks/OffreCard_DPfCnTLn.mjs';
-import { c as getOffres } from '../../../chunks/backend_3lfTKTj8.mjs';
+import { $ as $$OffreCard } from '../../../chunks/OffreCard_lOE6r84Z.mjs';
+import { c as getOffres } from '../../../chunks/backend_CPnBvLOi.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro();
