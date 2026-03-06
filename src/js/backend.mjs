@@ -1,5 +1,6 @@
+
 import PocketBase from "pocketbase";
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase("https://agence.leslie-laurent.fr/_/");
 
 export async function getOffres() {
     try {
@@ -85,4 +86,12 @@ export async function getOffresByAgent(agentId) {
 
 export async function setFavori(house) {
     await pb.collection('Maison').update(house.id, { Favori: house.favori });
+}
+
+export async function getStaticPaths() {
+    const agents = await getAgents();
+    return agents.map(agent => ({
+        params: { id: agent.id },
+        props: { agent }
+    }));
 }

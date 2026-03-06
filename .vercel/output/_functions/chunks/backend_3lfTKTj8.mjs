@@ -1,10 +1,8 @@
-export async function setFavori(house) {
-    await pb.collection('Maison').update(house.id, { Favori: house.favori });
-}
-import PocketBase from "pocketbase";
+import PocketBase from 'pocketbase';
+
 const pb = new PocketBase("https://agence.leslie-laurent.fr/_/");
 
-export async function getOffres() {
+async function getOffres() {
     try {
         let data = await pb.collection('Maison').getFullList({
             sort: '-created',
@@ -16,11 +14,11 @@ export async function getOffres() {
     }
 }
 
-export async function getImageUrl(record, recordImage) {
+async function getImageUrl(record, recordImage) {
     return pb.files.getURL(record, recordImage);
 }
 
-export async function getOffre(id) {
+async function getOffre(id) {
     try {
         const data = await pb.collection('Maison').getOne(id);
         return data;
@@ -37,7 +35,7 @@ try {
     console.error(e);
 }
 
-export async function addOffre(house) {
+async function addOffre(house) {
     try {
         await pb.collection('Maison').create(house);
         return {
@@ -53,7 +51,7 @@ export async function addOffre(house) {
     }
 }
 
-export async function filterByPrix(minPrix, maxPrix) {
+async function filterByPrix(minPrix, maxPrix) {
     try {
         const offres = await pb.collection('Maison').getFullList({
             filter: `Prix >= ${minPrix} && Prix <= ${maxPrix}`
@@ -65,7 +63,7 @@ export async function filterByPrix(minPrix, maxPrix) {
     }
 }
 
-export async function getAgents() {
+async function getAgents() {
     try {
         return await pb.collection('Agent').getFullList({ sort: 'nom' });
     } catch (error) {
@@ -74,7 +72,7 @@ export async function getAgents() {
     }
 }
 
-export async function getOffresByAgent(agentId) {
+async function getOffresByAgent(agentId) {
     try {
         return await pb.collection('Maison').getFullList({
             filter: `agent = "${agentId}"`,
@@ -86,6 +84,4 @@ export async function getOffresByAgent(agentId) {
     }
 }
 
-export async function setFavori(house) {
-    await db.collection('maison').update(house.id, {favori: !house.favori});
-}
+export { getAgents as a, addOffre as b, getOffres as c, getOffre as d, getImageUrl as e, filterByPrix as f, getOffresByAgent as g };

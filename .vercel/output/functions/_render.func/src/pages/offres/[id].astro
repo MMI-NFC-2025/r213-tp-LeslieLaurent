@@ -1,0 +1,24 @@
+---
+import { getOffre } from '../../js/backend.mjs';
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+const offre = await getOffre(id);
+---
+
+<Layout titre={offre?.Nom_maison || 'Détail de l\'offre'}>
+    {offre ? (
+        <>
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-[#3E2723]">{offre.Nom_maison}</h2>
+            <ul class="space-y-3 text-lg text-[#3E2723] max-w-2xl">
+                <li class="pb-3 border-b border-[#D4C5B0]">Adresse : {offre.Adresse}</li>
+                <li class="pb-3 border-b border-[#D4C5B0]">Surface : {offre.Surface} m²</li>
+                <li class="pb-3 border-b border-[#D4C5B0]">Salles de bain : {offre.nbr_SdB}</li>
+                <li class="pb-3 border-b border-[#D4C5B0]">Chambres : {offre.nbr_Chambres}</li>
+                <li class="pb-3 border-b border-[#D4C5B0]">Prix : {offre.Prix} €</li>
+            </ul>
+        </>
+    ) : (
+        <p class="text-lg text-[#3E2723]">Offre introuvable.</p>
+    )}
+</Layout>
